@@ -13,7 +13,9 @@
 
   input{
     width: 100%;
-    padding: 1rem 0;
+    -webkit-appearance: none;
+    background: transparent;
+    cursor: pointer;
   }
   p{
     padding: 1rem;
@@ -29,4 +31,14 @@
   svg {
     cursor: pointer;
   }
+}
+
+input[type="range"]:focus{
+outline: none;
+}
+input[type="range"]::-webkit-scrollbar-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  color: black;
 }
