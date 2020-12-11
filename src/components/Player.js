@@ -19,6 +19,7 @@ const Player = ({
   setCurrentSong,
   setSongs,
 }) => {
+  const animationPercentage = (songInfo.currentTime / songInfo.duration) * 100;
   //UseEffect
   useEffect(() => {
     const newSongs = songs.map((song) => {
@@ -74,13 +75,24 @@ const Player = ({
     <div className="player">
       <div className="time-control">
         <p>{getTime(songInfo.currentTime)}</p>
-        <input
-          min={0}
-          max={songInfo.duration || 0}
-          value={songInfo.currentTime}
-          type="range"
-          onChange={dragHandler}
-        />
+        <div
+          style={{
+            background: `linear-gradient(to right, ${currentSong.color[0]}, ${currentSong.color[1]}`,
+          }}
+          className="track"
+        >
+          <input
+            min={0}
+            max={songInfo.duration || 0}
+            value={songInfo.currentTime}
+            type="range"
+            onChange={dragHandler}
+          />
+          <div
+            className="animate-track"
+            style={{ transform: `translateX(${animationPercentage}%)` }}
+          />
+        </div>
         <p>
           {songInfo.duration
             ? getTime(songInfo.duration - songInfo.currentTime)
