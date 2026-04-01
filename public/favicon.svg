@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <style>
+      .icon-bg { fill: #4a6c7a; }
+      .icon-note { fill: #ffffff; }
+    </style>
+  </defs>
+  <rect class="icon-bg" width="256" height="256" rx="56"/>
+  <!-- Left music note -->
+  <circle class="icon-note" cx="80" cy="200" r="20"/>
+  <rect class="icon-note" x="75" y="80" width="10" height="120" rx="5"/>
+  <path class="icon-note" d="M 85 80 Q 110 70 130 90 L 130 170" stroke="#ffffff" stroke-width="8" fill="none"/>
+  
+  <!-- Right music note -->
+  <circle class="icon-note" cx="160" cy="200" r="20"/>
+  <rect class="icon-note" x="155" y="120" width="10" height="80" rx="5"/>
+  <path class="icon-note" d="M 165 120 Q 190 110 210 130 L 210 200" stroke="#ffffff" stroke-width="8" fill="none"/>
+</svg>
