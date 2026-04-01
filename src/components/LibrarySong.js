@@ -1,15 +1,6 @@
 import React from "react";
-import { playAudio } from "../util";
 
-const LibrarySong = ({
-  song,
-  songs,
-  setCurrentSong,
-  setSongs,
-  audioRef,
-  isPlaying,
-  id,
-}) => {
+const LibrarySong = ({ song, songs, setCurrentSong, setSongs, id }) => {
   const songSelectHandler = () => {
     const newSongs = songs.map((song) => {
       if (song.id === id) {
@@ -26,7 +17,6 @@ const LibrarySong = ({
     });
     setSongs(newSongs);
     setCurrentSong(song);
-    playAudio(isPlaying, audioRef);
   };
   return (
     <div

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { playAudio } from "../util";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -19,7 +18,12 @@ const Player = ({
   setCurrentSong,
   setSongs,
 }) => {
-  const animationPercentage = (songInfo.currentTime / songInfo.duration) * 100;
+  const animationPercentage =
+    songInfo.duration &&
+    isFinite(songInfo.duration) &&
+    isFinite(songInfo.currentTime)
+      ? (songInfo.currentTime / songInfo.duration) * 100
+      : 0;
   //UseEffect
   useEffect(() => {
     const newSongs = songs.map((song) => {
@@ -39,29 +43,27 @@ const Player = ({
   }, [currentSong]);
   //Event Handlers
   const playSongHandler = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(!isPlaying);
-    } else {
-      audioRef.current.play();
-      setIsPlaying(!isPlaying);
-    }
+    setIsPlaying(!isPlaying);
   };
   const getTime = (time) => {
+    if (!isFinite(time) || isNaN(time)) return "0:00";
     return (
       Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
     );
   };
   const dragHandler = (e) => {
-    audioRef.current.currentTime = e.target.value;
-    setSongInfo({ ...songInfo, currentTime: e.target.value });
+    // Radio streams don't support seeking, only allow seeking if duration is finite
+    if (songInfo.duration && isFinite(songInfo.duration)) {
+      audioRef.current.currentTime = e.target.value;
+      setSongInfo({ ...songInfo, currentTime: e.target.value });
+    }
   };
   const skipTrackHandler = (direction) => {
     let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
     switch (direction) {
       case "skip-back":
         setCurrentSong(
-          songs[(currentIndex - 1 >= 0 ? currentIndex : songs.length) - 1]
+          songs[(currentIndex - 1 >= 0 ? currentIndex : songs.length) - 1],
         );
         break;
       case "skip-forward":
@@ -69,7 +71,6 @@ const Player = ({
         break;
       default:
     }
-    playAudio(isPlaying, audioRef);
   };
   return (
     <div className="player">
