@@ -4,7 +4,6 @@ import React from "react";
 const Library = ({
   songs,
   setCurrentSong,
-  audioRef,
   isPlaying,
   setSongs,
   libraryStatus,
@@ -20,8 +19,6 @@ const Library = ({
             songs={songs}
             id={song.id}
             key={song.id}
-            audioRef={audioRef}
-            isPlaying={isPlaying}
             setSongs={setSongs}
           />
         ))}
